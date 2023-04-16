@@ -21,7 +21,7 @@ class MenuService implements UserServiceInterface
     {
         return  (new MenuRepository())->repositorySelect(self::searchWhere($requestParams),
             (int)($requestParams["size"] ?? 20),
-            ["title", "url", "path", "navigate"]);
+            ["title", "url", "path", "navigate", "state"]);
     }
 
     public function serviceCreate(array $requestParams): array
