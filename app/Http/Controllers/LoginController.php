@@ -17,7 +17,7 @@ class LoginController extends Controller
      */
     public function login(LoginValidate $loginValidate): JsonResponse
     {
-        $loginInfo = (new LoginService())->serviceLogin($loginValidate->post("code"));
+        $loginInfo = (new LoginService())->serviceLogin($loginValidate->post("code"), request()->all());
         if (!isset($loginInfo["msg"])) {
             return Response::success($loginInfo);
         }

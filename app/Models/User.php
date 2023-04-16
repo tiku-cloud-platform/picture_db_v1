@@ -24,6 +24,7 @@ class User extends BaseModel
         "invite_count",
         "production_count",
         "name",
+        "channel_uid",
     ];
 
     public function getEmailAttribute($key): string

@@ -10,6 +10,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ImageItemController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UserController;
@@ -38,13 +39,17 @@ Route::prefix("emo")->group(function (Router $router) {
 });
 
 Route::prefix("file")->group(function (Router $router) {
-    $router->post("upload", [FileUploadController::class, "upload"]);
+    $router->post("upload", [FileUploadController::class, "upload"])->middleware(["auth"]);
 });
 
 Route::prefix("doc")->group(function (Router $router) {
     $router->get("list", [DocumentController::class, "list"]);
     $router->get("show", [DocumentController::class, "show"]);
     $router->get("group", [DocumentGroupController::class, "list"]);
+});
+
+Route::prefix("menu")->group(function (Router $router) {
+    $router->get("list", [MenuController::class, "index"]);
 });
 
 Route::prefix("msg")->group(function (Router $router) {

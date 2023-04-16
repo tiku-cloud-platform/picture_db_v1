@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace App\Admin\Controllers;
 
 use App\Models\Admin\User;
+use App\Models\Admin\UserChannel;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Grid;
 
@@ -22,6 +23,7 @@ class UserController extends AdminController
                 $filter->like('email', "邮箱账号");
                 $filter->equal("profession", "用户职业")->select(['计算机/电子', '高级UI设计', '会计/金融', '政府/非盈利组织/其他']);
                 $filter->equal("gender", "用户性别")->select(['保密', '男', '女']);
+                $filter->equal("channel_uid", "注册渠道")->select(UserChannel::getList());
             });
             $filter->column(1 / 2, function ($filter) {
                 $filter->between('score', "用户积分");
@@ -35,6 +37,7 @@ class UserController extends AdminController
         $grid->model()->orderByDesc("id");
         $grid->column("uid", "用户编号")->copyable();
         $grid->column("avatar_url", "用户头像")->lightbox(['width' => 50, 'height' => 50]);
+        $grid->column("channel.title", "注册渠道");
         $grid->column("nickname", "用户昵称");
         $grid->column("name", "用户姓名");
         $grid->column("openid", "用户OpenId")->copyable();

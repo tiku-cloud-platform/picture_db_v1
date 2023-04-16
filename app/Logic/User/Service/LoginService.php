@@ -17,7 +17,7 @@ class LoginService
      * @throws InvalidConfigException
      * @throws RedisException
      */
-    public function serviceLogin(string $code): array
+    public function serviceLogin(string $code, array $requestParams): array
     {
         $loginInfo = WeChatClient::client()->auth->session($code);
         if (isset($loginInfo["openid"])) {
@@ -35,7 +35,8 @@ class LoginService
                     "openid" => $loginInfo["openid"],
                     "nickname" => $nickname,
                     "score" => $score,
-                    "remark" => $remark
+                    "remark" => $remark,
+                    "channel_uid" => $requestParams["channel_uid"] ?? "",
                 ]);
                 if (!count($createUser)) return ["msg" => "信息记录失败"];
                 $redis->incrByFloat(CacheKey::$scoreKey . $uid, 300);
