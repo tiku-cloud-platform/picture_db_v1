@@ -13,6 +13,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\SourceCategoryController;
+use App\Http\Controllers\SourceController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UserController;
 use Illuminate\Routing\Router;
@@ -54,7 +55,8 @@ Route::prefix("menu")->group(function (Router $router) {
 });
 
 Route::prefix("source")->group(function (Router $router) {
-    $router->get("category", [SourceCategoryController::class, "index"])
+    $router->get("category", [SourceCategoryController::class, "index"]);
+    $router->get("item", [SourceController::class, "index"]);
 });
 
 Route::prefix("msg")->group(function (Router $router) {
