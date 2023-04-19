@@ -10,6 +10,9 @@ use App\Admin\Controllers\ImageCategoryController;
 use App\Admin\Controllers\ImageController;
 use App\Admin\Controllers\ImageSeriesController;
 use App\Admin\Controllers\MenuController;
+use App\Admin\Controllers\SourceCategoryController;
+use App\Admin\Controllers\SourceItemController;
+use App\Admin\Controllers\SysConfigController;
 use App\Admin\Controllers\TemplateHistoryController;
 use App\Admin\Controllers\UserChannelController;
 use App\Admin\Controllers\UserController;
@@ -39,4 +42,7 @@ Route::group([
     $router->resource("emo/list", EmoImageController::class);
     $router->resource("menu/list", MenuController::class);
     $router->resource("user/channel", UserChannelController::class);
+    $router->resource("source/category", SourceCategoryController::class);
+    $router->resource("source/items", SourceItemController::class);
+    $router->resource("sys/config", SysConfigController::class);
 });
