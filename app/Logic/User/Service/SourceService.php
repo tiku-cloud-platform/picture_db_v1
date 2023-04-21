@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\Logic\User\Service;
 
+use App\Logic\User\Repository\SourceRepository;
 use Closure;
 
 class SourceService implements UserServiceInterface
@@ -19,7 +20,11 @@ class SourceService implements UserServiceInterface
 
     public function serviceSelect(array $requestParams): array
     {
-        // TODO: Implement serviceSelect() method.
+        return (new SourceRepository())->repositorySelect(
+            self::searchWhere($requestParams),
+            (int)($requestParams["size"] ?? 20),
+            ["uid", "title", "path", "url"]
+        );
     }
 
     public function serviceCreate(array $requestParams): array
@@ -39,6 +44,8 @@ class SourceService implements UserServiceInterface
 
     public function serviceFind(array $requestParams): array
     {
-        // TODO: Implement serviceFind() method.
+        return (new SourceRepository())->repositoryFind(function ($query) use ($requestParams) {
+            $query->where("uid", "=", $requestParams["uid"]);
+        }, ["site_url", "content", "source_type"]);
     }
 }

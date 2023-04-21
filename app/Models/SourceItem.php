@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Models;
 
@@ -18,5 +18,9 @@ class SourceItem extends BaseModel
         "source_type",
         "content",
         "site_url",
+    ];
+
+    protected $casts = [
+        "uid" => "string",
     ];
 }
