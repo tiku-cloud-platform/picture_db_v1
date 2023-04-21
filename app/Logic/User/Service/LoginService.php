@@ -36,7 +36,7 @@ class LoginService
                     "nickname" => $nickname,
                     "score" => $score,
                     "remark" => $remark,
-                    "channel_uid" => (int)$requestParams["channel_uid"] ?? 0,
+                    "channel_uid" => 0//(int)$requestParams["channel_uid"] ?? 0,
                 ]);
                 if (!count($createUser)) return ["msg" => "信息记录失败"];
                 $redis->incrByFloat(CacheKey::$scoreKey . $uid, 300);
