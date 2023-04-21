@@ -13,7 +13,7 @@ class ImageItemRepository implements UserRepositoryInterface
     {
         $items = (new ImageItemModel())::query()
             ->with(["author:uid,qr_url"])
-            ->with(["user:uid,nickname"])
+            ->with(["user:uid,nickname,avatar_url"])
             ->where($closure)
             ->orderByDesc("id")
             ->paginate($perSize, $searchFields);

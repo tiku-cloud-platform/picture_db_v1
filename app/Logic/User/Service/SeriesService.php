@@ -19,7 +19,7 @@ class SeriesService implements UserServiceInterface
     public function serviceSelect(array $requestParams): array
     {
         return (new SeriesRepository())->repositorySelect(self::searchWhere($requestParams),
-            (int)($requestParams["size"] ?? 20), ["title", "url", "path", "navigate", "uid"]);
+            (int)($requestParams["size"] ?? 100), ["title", "url", "path", "navigate", "uid"]);
     }
 
     public function serviceCreate(array $requestParams): array
