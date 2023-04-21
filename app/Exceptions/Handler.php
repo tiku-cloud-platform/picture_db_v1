@@ -47,20 +47,20 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if ($e instanceof MethodNotAllowedHttpException) {
-            return Response::error([], 101, $e->getMessage() . $e->getFile() . $e->getLine(), 404);
+            return Response::error([], 101, env("APP_DEBUG") ? $e->getMessage() . $e->getFile() . $e->getLine() : '请求异常', 404);
         }
         if ($e instanceof HttpException) {
-            return Response::error([], 101, $e->getMessage() . "||" . $e->getFile() . $e->getLine(), 403);
+            return Response::error([], 101, env("APP_DEBUG") ? $e->getMessage() . $e->getFile() . $e->getLine() : '请求异常', 403);
         }
         if ($e instanceof ErrorException) {
-            return Response::error([], 101, $e->getMessage() . $e->getFile() . $e->getLine(), 500);
+            return Response::error([], 101, env("APP_DEBUG") ? $e->getMessage() . $e->getFile() . $e->getLine() : '请求异常', 500);
         }
         if ($e instanceof QueryException) {
-            return Response::error([], 101, $e->getMessage() . $e->getFile() . $e->getLine(), 500);
+            return Response::error([], 101, env("APP_DEBUG") ? $e->getMessage() . $e->getFile() . $e->getLine() : '请求异常', 500);
         }
         if ($e instanceof ValidationException) {
             return Response::error([], 101, $e->validator->getMessageBag()->first(), 422);
         }
-        return Response::error([], 101, $e->getMessage() . $e->getFile() . $e->getLine());
+        return Response::error([], 101, env("APP_DEBUG") ? $e->getMessage() . $e->getFile() . $e->getLine() : '请求异常');
     }
 }
