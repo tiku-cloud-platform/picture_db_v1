@@ -54,7 +54,7 @@ Route::prefix("menu")->group(function (Router $router) {
 });
 
 Route::prefix("source")->group(function (Router $router) {
-    $router->get("category", [SourceCategoryController::class, "index"])
+    $router->get("category", [SourceCategoryController::class, "index"]);
 });
 
 Route::prefix("msg")->group(function (Router $router) {
