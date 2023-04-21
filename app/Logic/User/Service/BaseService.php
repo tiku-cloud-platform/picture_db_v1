@@ -12,7 +12,7 @@ class BaseService
     {
         $authorization = request()->header("Authorization");
         $authorization = trim(str_replace("Bearer", "", $authorization));
-        return UserJwt::decodeJwt($authorization)["uid"];
+        return (int)UserJwt::decodeJwt($authorization)["uid"];
     }
 
     protected function getUserInfo(): array
