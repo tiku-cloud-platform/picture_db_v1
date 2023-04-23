@@ -3,8 +3,11 @@ declare(strict_types = 1);
 
 namespace App\Admin\Controllers;
 
+use App\Library\SnowFlakeId;
+use App\Models\Admin\EmoGroup;
 use App\Models\Admin\EmoImage;
 use Encore\Admin\Controllers\AdminController;
+use Encore\Admin\Form;
 use Encore\Admin\Grid;
 
 class EmoImageController extends AdminController
@@ -49,5 +52,19 @@ class EmoImageController extends AdminController
             $actions->disableView();
         });
         return $grid;
+    }
+
+    public function form(): Form
+    {
+        $form = new Form(new EmoGroup());
+        $form->hidden("uid", "相册编号")->default(SnowFlakeId::getId());
+        $form->hidden("author_uid", "相册作者")->default(env("AUTHOR_ID"));
+        $form->hidden("user_uid", "相册用户")->default(env("ADMIN_ID"));
+        $form->hidden("url", "相册地址")->default(env("QINIU_URL"));
+        $form->text("title", "一级标题")->rules('required|max:20');
+        $form->image("path", "相册封面")->uniqueName()->required();
+        $form->radio("is_show", "上架状态")->options([1 => "上架", 2 => "下架"])->default(1);
+
+        return $form;
     }
 }

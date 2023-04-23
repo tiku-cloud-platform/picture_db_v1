@@ -13,6 +13,7 @@ class EmoGroupRepository implements UserRepositoryInterface
         $items = (new EmoGroup())::query()
 //            ->with(["img:img_back,group_uid"])
             ->where($closure)
+            ->orderByDesc("id")
             ->paginate($perSize, $searchFields);
 
         return [
