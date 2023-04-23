@@ -14,6 +14,9 @@ class EmoGroupService implements UserServiceInterface
         return function ($query) use ($requestParams) {
             extract($requestParams);
             $query->where("is_show", "=", 1);
+            if (!empty($title)) {
+                $query->where("title", "like", "%{$title}%");
+            }
         };
     }
 

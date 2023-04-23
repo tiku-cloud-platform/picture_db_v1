@@ -27,6 +27,10 @@ class User extends BaseModel
         "channel_uid",
     ];
 
+    protected $casts = [
+        "profession" => "integer",
+    ];
+
     public function getEmailAttribute($key): string
     {
         return !empty($key) ? $key : "";
