@@ -10,6 +10,7 @@ use App\Admin\Controllers\ImageCategoryController;
 use App\Admin\Controllers\ImageController;
 use App\Admin\Controllers\ImageSeriesController;
 use App\Admin\Controllers\MenuController;
+use App\Admin\Controllers\RelationLinkController;
 use App\Admin\Controllers\SourceCategoryController;
 use App\Admin\Controllers\SourceItemController;
 use App\Admin\Controllers\SysConfigController;
@@ -45,4 +46,5 @@ Route::group([
     $router->resource("source/category", SourceCategoryController::class);
     $router->resource("source/items", SourceItemController::class);
     $router->resource("sys/config", SysConfigController::class);
+    $router->resource("relation/link", RelationLinkController::class);
 });

@@ -11,6 +11,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ImageItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\RelationLinkController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\SourceCategoryController;
 use App\Http\Controllers\SourceController;
@@ -58,6 +59,7 @@ Route::prefix("source")->group(function (Router $router) {
     $router->get("category", [SourceCategoryController::class, "index"]);
     $router->get("item", [SourceController::class, "index"]);
     $router->get("detail", [SourceController::class, "show"]);
+    $router->get("link", [RelationLinkController::class, "index"]);
 });
 
 Route::prefix("msg")->group(function (Router $router) {
