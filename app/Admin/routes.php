@@ -17,6 +17,7 @@ use App\Admin\Controllers\SysConfigController;
 use App\Admin\Controllers\TemplateHistoryController;
 use App\Admin\Controllers\UserChannelController;
 use App\Admin\Controllers\UserController;
+use App\Admin\Controllers\UserScoreHistoryController;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,7 @@ Route::group([
     $router->resource("emo/list", EmoImageController::class);
     $router->resource("menu/list", MenuController::class);
     $router->resource("user/channel", UserChannelController::class);
+    $router->resource("user/score/history", UserScoreHistoryController::class);
     $router->resource("source/category", SourceCategoryController::class);
     $router->resource("source/items", SourceItemController::class);
     $router->resource("sys/config", SysConfigController::class);

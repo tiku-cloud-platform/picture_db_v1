@@ -24,7 +24,8 @@
         "laravel/tinker": "^2.5",
         "overtrue/wechat": "~5.0",
         "predis/predis": "^2.1",
-        "zgldh/qiniu-laravel-storage": "^0.10.4"
+        "zgldh/qiniu-laravel-storage": "^0.10.4",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

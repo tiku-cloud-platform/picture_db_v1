@@ -4,7 +4,9 @@ declare(strict_types = 1);
 namespace App\Logic\User\Service;
 
 use App\Constant\CacheKey;
+use App\Library\SnowFlakeId;
 use App\Logic\User\Repository\UserRepository;
+use App\Logic\User\Repository\UserScoreHistoryRepository;
 use Closure;
 use Illuminate\Support\Facades\Redis;
 use RedisException;
@@ -77,6 +79,14 @@ class UserService extends BaseService implements UserServiceInterface
             (new UserRepository())->repositoryUpdate([
                 ["uid", "=", $this->getUserUid()]
             ], ["score" => $score + 20]);
+            // TODO 这里做一下处理，一天修改超过n次就不增加积分
+            (new UserScoreHistoryRepository())->repositoryCreate([
+                "uid"      => SnowFlakeId::getId(),
+                "title"    => "更新个人资料",
+                "user_uid" => $this->getUserUid(),
+                "score"    => 10,
+                "type"     => 1,
+            ]);
             return ["row" => 1, "token" => $loginToken, "user" => $userInfo];
         }
         return ["row" => 0];
