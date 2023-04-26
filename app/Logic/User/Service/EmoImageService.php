@@ -21,7 +21,7 @@ class EmoImageService implements UserServiceInterface
     public function serviceSelect(array $requestParams): array
     {
         return (new EmoImageRepository())->repositorySelect(self::searchWhere($requestParams),
-            (int)($requestParams["size"] ?? 8), ["uid", "img_back", "path", "url"]);
+            (int)($requestParams["size"] ?? 8), ["uid", "path", "url"]);
     }
 
     public function serviceCreate(array $requestParams): array
