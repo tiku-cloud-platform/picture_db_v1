@@ -17,5 +17,7 @@ class EmoImage extends BaseModel
         "height",
         "is_show",
         "type",
+        "path",
+        "url"
     ];
 }

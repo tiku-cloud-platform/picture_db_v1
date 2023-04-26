@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Emo\EmoUpload;
 use App\Library\SnowFlakeId;
 use App\Models\Admin\EmoGroup;
 use Encore\Admin\Controllers\AdminController;
@@ -35,6 +36,7 @@ class EmoGroupController extends AdminController
         $grid->disableExport();
         $grid->actions(function ($actions) {
             $actions->disableView();
+            $actions->add(new EmoUpload);
         });
 
         return $grid;

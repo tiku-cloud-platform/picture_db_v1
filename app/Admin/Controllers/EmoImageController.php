@@ -1,8 +1,9 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Emo\EmoUpload;
 use App\Library\SnowFlakeId;
 use App\Models\Admin\EmoGroup;
 use App\Models\Admin\EmoImage;
@@ -35,8 +36,7 @@ class EmoImageController extends AdminController
 
         $grid->column("group.title", "分组名称");
         $grid->column("title", "图片名称");
-        $grid->column("title", "相册名称");
-        $grid->column("img_back", "相册封面")->lightbox(['width' => 50, 'height' => 50]);
+        $grid->column("img_back", "图片封面")->lightbox(['width' => 50, 'height' => 50]);
         $grid->column("width", "图片宽度");
         $grid->column("height", "图片高度");
         $grid->column("type", "图片类型");
@@ -56,13 +56,11 @@ class EmoImageController extends AdminController
 
     public function form(): Form
     {
-        $form = new Form(new EmoGroup());
-        $form->hidden("uid", "相册编号")->default(SnowFlakeId::getId());
-        $form->hidden("author_uid", "相册作者")->default(env("AUTHOR_ID"));
-        $form->hidden("user_uid", "相册用户")->default(env("ADMIN_ID"));
-        $form->hidden("url", "相册地址")->default(env("QINIU_URL"));
-        $form->text("title", "一级标题")->rules('required|max:20');
-        $form->image("path", "相册封面")->uniqueName()->required();
+        $form = new Form(new EmoImage());
+        $form->hidden("uid", "图片编号")->default(SnowFlakeId::getId());
+        $form->hidden("url", "图片地址")->default(env("QINIU_URL"));
+        $form->text("title", "图片名称")->rules('required|max:20');
+        $form->image("path", "图片管理")->uniqueName()->required();
         $form->radio("is_show", "上架状态")->options([1 => "上架", 2 => "下架"])->default(1);
 
         return $form;
