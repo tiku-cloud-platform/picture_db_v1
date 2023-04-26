@@ -14,7 +14,7 @@ class EmoGroup extends \App\Models\EmoGroup
             ["group_uid", "=", $this->getAttribute("uid")],
             ["is_show", "=", 1]
         ])->limit(4)
-            ->get(["path,url"])
+            ->get(["path","url"])
             ->toArray();
     }
 }
