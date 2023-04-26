@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace App\Models\User;
 
-
 class EmoGroup extends \App\Models\EmoGroup
 {
     protected $appends = ["img"];

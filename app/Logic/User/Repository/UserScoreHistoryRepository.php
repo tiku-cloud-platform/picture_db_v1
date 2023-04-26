@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Logic\User\Repository;
 
-use App\Library\SnowFlakeId;
 use App\Models\User\SourceItem;
 use App\Models\User\UserScoreHistory;
 use Closure;
