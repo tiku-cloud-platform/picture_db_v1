@@ -11,7 +11,7 @@ class EmoGroupRepository implements UserRepositoryInterface
     public function repositorySelect(Closure $closure, int $perSize, array $searchFields = []): array
     {
         $items = (new EmoGroup())::query()
-//            ->with(["img:img_back,group_uid"])
+           ->with(["img:group_uid,path,url"])
             ->where($closure)
             ->orderByDesc("id")
             ->paginate($perSize, $searchFields);
