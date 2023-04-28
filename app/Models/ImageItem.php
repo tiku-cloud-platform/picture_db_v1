@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -23,4 +23,9 @@ class ImageItem extends BaseModel
     protected $casts = [
         "uid" => "string",
     ];
+
+    public function getPathAttribute($key): string
+    {
+        return $key . "?watermark/2/text/5YWU5YWU5om+5Zu+/fontsize/400";
+    }
 }

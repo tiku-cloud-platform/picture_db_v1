@@ -45,6 +45,7 @@ Route::prefix("emo")->group(function (Router $router) {
 
 Route::prefix("file")->group(function (Router $router) {
     $router->post("upload", [FileUploadController::class, "upload"])->middleware(["auth"]);
+    $router->post("author", [FileUploadController::class, "uploadAuthor"])->middleware(["auth"]);
 });
 
 Route::prefix("doc")->group(function (Router $router) {
