@@ -30,9 +30,11 @@ class UserAuthor extends RowAction
     {
         $uid = $this->getRow()->getAttribute("uid");
         $author = Author::query()->where("user_uid", "=", $uid)->first(["series_count", "created_at", "is_forbidden", "uid"]);
-        $this->text("uid", "作者编号")->default($author->uid)->readonly();
-        $this->text("created_at", "认证时间")->default($author->created_at)->readonly();
-        $this->text("series_count", "作品数量")->default($author->series_count)->readonly();
-        $this->radio('is_forbidden', '账号状态')->default($author->is_forbidden)->options([1 => "禁用", 2 => "正常"])->required();
+        if (!empty($author)) {
+            $this->text("uid", "作者编号")->default($author->uid)->readonly();
+            $this->text("created_at", "认证时间")->default($author->created_at)->readonly();
+            $this->text("series_count", "作品数量")->default($author->series_count)->readonly();
+            $this->radio('is_forbidden', '账号状态')->default($author->is_forbidden)->options([1 => "禁用", 2 => "正常"])->required();
+        }
     }
 }
