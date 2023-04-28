@@ -63,7 +63,6 @@ class UserController extends AdminController
         $grid->actions(function ($actions) {
             $actions->disableView();
             $actions->disableDelete();
-            $actions->add(new UserAuthorAction());
         });
         $grid->disableCreateButton();
 
