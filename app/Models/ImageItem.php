@@ -26,6 +26,6 @@ class ImageItem extends BaseModel
 
     public function getPathAttribute($key): string
     {
-        return $key . "?imageMogr2/auto-orient/thumbnail/40000@/interlace/1/blur/1x0/quality/50|watermark/2/text/5YWU5YWU5om-5Zu-5b6u5L-h5bCP56iL5bqP/font/5b6u6L2v6ZuF6buR/fontsize/260/fill/I0ZGRkZGRg==/dissolve/50/gravity/SouthWest/dx/2/dy/2|imageslim";
+        return $key . "?imageMogr2/auto-orient/thumbnail/40000@/interlace/1/blur/1x0/quality/50|watermark/2/text/5YWU5YWU5om-5Zu-5b6u5L-h5bCP56iL5bqP/font/5b6u6L2v6ZuF6buR/fontsize/260/fill/I0ZGRkZGRg==/dissolve/80/gravity/SouthWest/dx/2/dy/2|imageslim";
     }
 }
