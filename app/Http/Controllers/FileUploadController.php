@@ -17,7 +17,8 @@ class FileUploadController
             if ($request->hasFile('file')) {
                 $file     = $request->file('file');
                 $disk     = QiniuStorage::disk('qiniu');
-                $fileName = md5($file->getClientOriginalName() . time() . rand()) . '.' . $file->getClientOriginalExtension();
+                // 这里固定图片格式，是因为七牛云的CDN瘦身只支持jpg和png两种格式
+                $fileName = md5($file->getClientOriginalName() . time() . rand()) . '.png';// . $file->getClientOriginalExtension();
                 $bool     = $disk->put($fileName, file_get_contents($file->getRealPath()));
                 if ($bool) {
                     $path = $disk->downloadUrl($fileName);
