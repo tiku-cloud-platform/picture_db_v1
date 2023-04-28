@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\Author\UserAuthorAction1;
 use Encore\Admin\Grid;
 use App\Models\Admin\Author;
-use App\Admin\Actions\Author\Author;
+use App\Admin\Actions\Author\Author as AuthorAction;
 use Encore\Admin\Controllers\AdminController;
 
 class AuthorController extends AdminController
@@ -48,7 +47,7 @@ class AuthorController extends AdminController
             $actions->disableView();
             $actions->disableEdit();
             $actions->disableDelete();
-            $actions->add(new Author());
+            $actions->add(new AuthorAction());
         });
         $grid->disableCreateButton();
 
