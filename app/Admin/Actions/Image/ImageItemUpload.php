@@ -40,7 +40,7 @@ class ImageItemUpload extends RowAction
             $model::query()->where("uid", "=", $request->post("image_uid"))->increment("item_count", count($imageArray));
             return $this->response()->success('上传成功')->refresh();
         }
-        return $this->response->error("上传失败")->refresh();
+        return $this->response()->error("上传失败")->refresh();
     }
 
     public function form()
@@ -51,8 +51,7 @@ class ImageItemUpload extends RowAction
         $this->hidden("user_uid", "相册用户")->default(env("AUTHOR_ID"));
         $this->hidden("url", "相册地址")->default(env("QINIU_URL"));
         $this->multipleImage("path", "相册图片")->sortable()->required()->name(function ($file) {
-            return SnowFlakeId::getId() . '.' . $file->guessExtension();
+            return SnowFlakeId::getId() . '.jpg';
         });
     }
-
 }

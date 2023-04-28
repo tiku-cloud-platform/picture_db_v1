@@ -1,32 +1,33 @@
 <?php
 
+use Illuminate\Routing\Router;
+use Encore\Admin\Facades\Admin;
+use Illuminate\Support\Facades\Route;
+use App\Admin\Controllers\HomeController;
+use App\Admin\Controllers\MenuController;
+use App\Admin\Controllers\UserController;
+use App\Admin\Controllers\ImageController;
+use App\Admin\Controllers\AuthorController;
 use App\Admin\Controllers\BannerController;
 use App\Admin\Controllers\DocumentController;
-use App\Admin\Controllers\DocumentGroupController;
 use App\Admin\Controllers\EmoGroupController;
 use App\Admin\Controllers\EmoImageController;
-use App\Admin\Controllers\HomeController;
-use App\Admin\Controllers\ImageCategoryController;
-use App\Admin\Controllers\ImageController;
-use App\Admin\Controllers\ImageSeriesController;
-use App\Admin\Controllers\MenuController;
-use App\Admin\Controllers\RelationLinkController;
-use App\Admin\Controllers\SourceCategoryController;
-use App\Admin\Controllers\SourceItemController;
 use App\Admin\Controllers\SysConfigController;
-use App\Admin\Controllers\TemplateHistoryController;
+use App\Admin\Controllers\SourceItemController;
+use App\Admin\Controllers\ImageSeriesController;
 use App\Admin\Controllers\UserChannelController;
-use App\Admin\Controllers\UserController;
+use App\Admin\Controllers\RelationLinkController;
+use App\Admin\Controllers\DocumentGroupController;
+use App\Admin\Controllers\ImageCategoryController;
+use App\Admin\Controllers\SourceCategoryController;
+use App\Admin\Controllers\TemplateHistoryController;
 use App\Admin\Controllers\UserScoreHistoryController;
-use Encore\Admin\Facades\Admin;
-use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Route;
 
 Admin::routes();
 
 Route::group([
     'prefix' => config('admin.route.prefix'),
-//    'namespace'     => config('admin.route.namespace'),
+    //    'namespace'     => config('admin.route.namespace'),
     'middleware' => config('admin.route.middleware'),
     'as' => config('admin.route.prefix') . '.',
 ], function (Router $router) {
@@ -49,4 +50,5 @@ Route::group([
     $router->resource("source/items", SourceItemController::class);
     $router->resource("sys/config", SysConfigController::class);
     $router->resource("relation/link", RelationLinkController::class);
+    $router->resource("author", AuthorController::class);
 });

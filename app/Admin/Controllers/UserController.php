@@ -3,10 +3,11 @@ declare(strict_types = 1);
 
 namespace App\Admin\Controllers;
 
+use Encore\Admin\Grid;
 use App\Models\Admin\User;
 use App\Models\Admin\UserChannel;
 use Encore\Admin\Controllers\AdminController;
-use Encore\Admin\Grid;
+use App\Admin\Actions\Author\UserAuthorAction;
 
 class UserController extends AdminController
 {
@@ -62,6 +63,7 @@ class UserController extends AdminController
         $grid->actions(function ($actions) {
             $actions->disableView();
             $actions->disableDelete();
+            $actions->add(new UserAuthorAction);
         });
         $grid->disableCreateButton();
 

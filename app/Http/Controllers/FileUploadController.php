@@ -15,11 +15,11 @@ class FileUploadController
     {
         if ($request->isMethod('post')) {
             if ($request->hasFile('file')) {
-                $file     = $request->file('file');
-                $disk     = QiniuStorage::disk('qiniu');
+                $file = $request->file('file');
+                $disk = QiniuStorage::disk('qiniu');
                 // 这里固定图片格式，是因为七牛云的CDN瘦身只支持jpg和png两种格式
-                $fileName = md5($file->getClientOriginalName() . time() . rand()) . '.png';// . $file->getClientOriginalExtension();
-                $bool     = $disk->put($fileName, file_get_contents($file->getRealPath()));
+                $fileName = md5($file->getClientOriginalName() . time() . rand()) . '.png';
+                $bool = $disk->put($fileName, file_get_contents($file->getRealPath()));
                 if ($bool) {
                     $path = $disk->downloadUrl($fileName);
                     return Response::success(["url" => $path], 100, "上传成功");
@@ -42,10 +42,10 @@ class FileUploadController
     {
         if ($request->isMethod('post')) {
             if ($request->hasFile('file')) {
-                $file     = $request->file('file');
-                $disk     = QiniuStorage::disk('qiniu');
-                $fileName = md5($file->getClientOriginalName() . time() . rand()) . '.' . $file->getClientOriginalExtension();
-                $bool     = $disk->put($fileName, file_get_contents($file->getRealPath()));
+                $file = $request->file('file');
+                $disk = QiniuStorage::disk('qiniu');
+                $fileName = md5($file->getClientOriginalName() . time() . rand()) . '.png';
+                $bool = $disk->put($fileName, file_get_contents($file->getRealPath()));
                 if ($bool) {
                     $path = $disk->downloadUrl($fileName);
                     return Response::success(["url" => $path], 100, "上传成功");
