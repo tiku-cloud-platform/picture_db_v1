@@ -61,7 +61,7 @@ class UserController extends AdminController
             if ($is_forbidden == 2) {
                 return "<span style='color:green'>启用</span>";
             }
-            return "<span style='color:gray'>未知</span>";
+            return "<span style='color:gray'>还未认证</span>";
         });
         $grid->column("score", "用户积分");
         $grid->column("production_count", "作品数量");
