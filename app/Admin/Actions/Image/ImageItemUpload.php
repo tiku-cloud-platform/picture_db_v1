@@ -16,21 +16,21 @@ class ImageItemUpload extends RowAction
 
     public function handle(Model $model, Request $request): Response
     {
-        $fileArray  = $request->file("path");
+        $fileArray = $request->file("path");
         $imageArray = [];
         foreach ($fileArray as $value) {
-            $disk     = QiniuStorage::disk('qiniu');
+            $disk = QiniuStorage::disk('qiniu');
             $fileName = md5($value->getClientOriginalName() . time() . rand()) . '.' . $value->getClientOriginalExtension();
-            $bool     = $disk->put($fileName, file_get_contents($value->getRealPath()));
+            $bool = $disk->put($fileName, file_get_contents($value->getRealPath()));
             if ($bool) {
-                $path         = $disk->downloadUrl($fileName);
+                $path = $disk->downloadUrl($fileName);
                 $imageArray[] = [
-                    "uid" => SnowFlakeId::getId(),
-                    "user_uid" => $request->post("user_uid"),
-                    "image_uid" => $request->post("image_uid"),
+                    "uid"        => SnowFlakeId::getId(),
+                    "user_uid"   => $request->post("user_uid"),
+                    "image_uid"  => $request->post("image_uid"),
                     "author_uid" => $request->post("author_uid"),
-                    "url" => $request->post("url"),
-                    "path" => $fileName,
+                    "url"        => $request->post("url"),
+                    "path"       => $fileName,
                     "created_at" => date("Y-m-d H:i:s"),
                     "updated_at" => date("Y-m-d H:i:s"),
                 ];
@@ -50,7 +50,9 @@ class ImageItemUpload extends RowAction
         $this->hidden("author_uid", "相册作者")->default(env("AUTHOR_ID"));
         $this->hidden("user_uid", "相册用户")->default(env("AUTHOR_ID"));
         $this->hidden("url", "相册地址")->default(env("QINIU_URL"));
-        $this->multipleImage("path", "相册图片")->sortable()->required();
+        $this->multipleImage("path", "相册图片")->sortable()->required()->name(function ($file) {
+            return SnowFlakeId::getId() . '.' . $file->guessExtension();
+        });
     }
 
 }
