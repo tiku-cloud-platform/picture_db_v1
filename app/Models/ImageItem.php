@@ -23,9 +23,4 @@ class ImageItem extends BaseModel
     protected $casts = [
         "uid" => "string",
     ];
-
-    public function getPathAttribute($key): string
-    {
-        return $key . "?imageMogr2/auto-orient/thumbnail/40000@/blur/1x0/quality/100|watermark/2/text/5YWU5YWU5om-5Zu-5b6u5L-h5bCP56iL5bqP/font/5b6u6L2v6ZuF6buR/fontsize/240/fill/I0ZGRkZGRg==/dissolve/80/gravity/SouthWest/dx/2/dy/2";
-    }
 }
