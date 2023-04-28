@@ -3,11 +3,11 @@ declare(strict_types = 1);
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Author\UserAuthor;
 use Encore\Admin\Grid;
 use App\Models\Admin\User;
 use App\Models\Admin\UserChannel;
 use Encore\Admin\Controllers\AdminController;
-use App\Admin\Actions\Author\UserAuthorAction1;
 
 class UserController extends AdminController
 {
@@ -54,6 +54,15 @@ class UserController extends AdminController
             }
             return "<span style='color:gray'>未知</span>";
         });
+        $grid->column("author.is_forbidden", "作者账号状态")->display(function ($is_forbidden) {
+            if ($is_forbidden == 1) {
+                return "<span style='color:red'>封禁</span>";
+            }
+            if ($is_forbidden == 2) {
+                return "<span style='color:green'>启用</span>";
+            }
+            return "<span style='color:gray'>未知</span>";
+        });
         $grid->column("score", "用户积分");
         $grid->column("production_count", "作品数量");
         $grid->column("invite_count", "邀请人数");
@@ -63,6 +72,7 @@ class UserController extends AdminController
         $grid->actions(function ($actions) {
             $actions->disableView();
             $actions->disableDelete();
+            $actions->add(new UserAuthor());
         });
         $grid->disableCreateButton();
 

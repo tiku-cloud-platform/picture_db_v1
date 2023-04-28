@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Encore\Admin\Actions\RowAction;
 use Illuminate\Database\Eloquent\Model;
 
-class UserAuthorAction1 extends RowAction
+class UserAuthor extends RowAction
 {
     public $name = "作者信息";
 
@@ -18,7 +18,7 @@ class UserAuthorAction1 extends RowAction
         $uid = $request->post("uid", "");
         $isForbidden = $request->post("is_forbidden", 2);
         if (!empty($uid) && !empty($isForbidden)) {
-            if (Author::query()->where("uid", "=", $uid)->update(["is_forbidden" => $isForbidden])) {
+            if (Author::query()->where("user_uid", "=", $uid)->update(["is_forbidden" => $isForbidden])) {
                 return  $this->response()->success("更新成功")->refresh();
             }
             return $this->response()->error("更新失败");
@@ -29,7 +29,7 @@ class UserAuthorAction1 extends RowAction
     public function form()
     {
         $uid = $this->getRow()->getAttribute("uid");
-        $author = Author::query()->where("uid", "=", $uid)->first(["series_count", "created_at", "is_forbidden", "uid"]);
+        $author = Author::query()->where("user_uid", "=", $uid)->first(["series_count", "created_at", "is_forbidden", "uid"]);
         $this->text("uid", "作者编号")->default($author->uid)->readonly();
         $this->text("created_at", "认证时间")->default($author->created_at)->readonly();
         $this->text("series_count", "作品数量")->default($author->series_count)->readonly();

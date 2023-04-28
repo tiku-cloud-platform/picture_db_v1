@@ -50,5 +50,4 @@ Route::group([
     $router->resource("source/items", SourceItemController::class);
     $router->resource("sys/config", SysConfigController::class);
     $router->resource("relation/link", RelationLinkController::class);
-    $router->resource("author/list", AuthorController::class);
 });
