@@ -30,7 +30,6 @@ class UserAuthorAction extends RowAction
     {
         $userUid = $this->getRow()->getAttribute("uid");
         $author = Author::query()->where("user_uid", "=", $userUid)->first(["series_count", "created_at", "is_forbidden", "uid"]);
-        var_dump($author);
         $this->text("uid", "作者编号")->default($author->uid)->readonly();
         $this->text("created_at", "认证时间")->default($author->created_at)->readonly();
         $this->text("series_count", "作品数量")->default($author->series_count)->readonly();
