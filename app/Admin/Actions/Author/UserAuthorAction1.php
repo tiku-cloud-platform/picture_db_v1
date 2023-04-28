@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Encore\Admin\Actions\RowAction;
 use Illuminate\Database\Eloquent\Model;
 
-class UserAuthorAction extends RowAction
+class UserAuthorAction1 extends RowAction
 {
     public $name = "作者信息";
 

@@ -7,7 +7,7 @@ use Encore\Admin\Grid;
 use App\Models\Admin\User;
 use App\Models\Admin\UserChannel;
 use Encore\Admin\Controllers\AdminController;
-use App\Admin\Actions\Author\UserAuthorAction;
+use App\Admin\Actions\Author\UserAuthorAction1;
 
 class UserController extends AdminController
 {
