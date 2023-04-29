@@ -33,6 +33,7 @@ Route::prefix("user")->group(function (Router $router) {
 
 Route::prefix("author")->group(function (Router $router) {
     $router->get("is_update_avatar", [AuthorController::class, "checkUpdateAvatar"])->middleware("auth");
+    $router->post("publish_wall_paper", [AuthorController::class, "publishWallPaper"])->middleware("auth");
 });
 
 Route::prefix("banner")->group(function (Router $router) {
