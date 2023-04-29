@@ -87,7 +87,7 @@ class UserService extends BaseService implements UserServiceInterface
                         "uid"      => SnowFlakeId::getId(),
                         "title"    => "更新个人资料",
                         "user_uid" => $this->getUserUid(),
-                        "score"    => 10,
+                        "score"    => 20,
                         "type"     => 1,
                     ]);
                     RedisClient::client()->incr(CacheKey::$userInfoUpdateCount . $uid);
