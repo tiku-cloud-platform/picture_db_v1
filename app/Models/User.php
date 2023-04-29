@@ -25,6 +25,7 @@ class User extends BaseModel
         "production_count",
         "name",
         "channel_uid",
+        "is_update_info"
     ];
 
     protected $casts = [

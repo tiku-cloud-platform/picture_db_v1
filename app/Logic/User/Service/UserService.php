@@ -1,9 +1,10 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Logic\User\Service;
 
 use App\Constant\CacheKey;
+use App\Library\RedisClient;
 use App\Library\SnowFlakeId;
 use App\Logic\User\Repository\UserRepository;
 use App\Logic\User\Repository\UserScoreHistoryRepository;
@@ -38,56 +39,61 @@ class UserService extends BaseService implements UserServiceInterface
     }
 
 
-
     /**
      * @throws RedisException
      */
     public function serviceUpdate(array $requestParams): array
     {
-        $uid        = $this->getUserUid();
+        $uid = $this->getUserUid();
         $updateUser = (new UserRepository())->repositoryUpdate([
-            ["uid", "=", $uid]
+            ["uid", "=", $uid],
         ], [
-            "nickname" => $requestParams["nickname"],
-            "mobile" => $requestParams["mobile"] ?? "",
-            "email" => $requestParams["email"] ?? "",
+            "nickname"   => $requestParams["nickname"],
+            "mobile"     => $requestParams["mobile"] ?? "",
+            "email"      => $requestParams["email"] ?? "",
             "avatar_url" => $requestParams["avatar_url"],
-            "gender" => $requestParams["gender"],
-            "birthday" => $requestParams["birthday"],
-            "remark" => $requestParams["remark"],
+            "gender"     => $requestParams["gender"],
+            "birthday"   => $requestParams["birthday"],
+            "remark"     => $requestParams["remark"],
             "profession" => $requestParams["profession"],
-            "name" => $requestParams["name"],
+            "name"       => $requestParams["name"],
         ]);
         if ($updateUser) {
-            $redis      = Redis::connection()->client();
-            $score      = $redis->get(CacheKey::$scoreKey . $uid);
-            $userInfo   = [
-                "uid" => $uid,
-                "nickname" => $requestParams["nickname"],
-                "mobile" => $requestParams["mobile"] ?? "",
-                "email" => $requestParams["email"] ?? "",
+            $score = RedisClient::client()->get(CacheKey::$scoreKey . $uid);
+            $userInfo = [
+                "uid"        => $uid,
+                "nickname"   => $requestParams["nickname"],
+                "mobile"     => $requestParams["mobile"] ?? "",
+                "email"      => $requestParams["email"] ?? "",
                 "avatar_url" => $requestParams["avatar_url"],
-                "gender" => $requestParams["gender"],
-                "birthday" => $requestParams["birthday"],
-                "remark" => $requestParams["remark"],
+                "gender"     => $requestParams["gender"],
+                "birthday"   => $requestParams["birthday"],
+                "remark"     => $requestParams["remark"],
                 "profession" => $requestParams["profession"],
-                "name" => $requestParams["name"],
-                "score" => $score + 20,
+                "name"       => $requestParams["name"],
+                "score"      => $score + 20,
             ];
+            // 更新成功之后，同步缓存信息
             $loginToken = $this->updateUserInfo($userInfo);
-            $redis->incrByFloat(CacheKey::$scoreKey . $uid, 20);
-            (new UserRepository())->repositoryUpdate([
-                ["uid", "=", $this->getUserUid()]
-            ], ["score" => $score + 20]);
-            // TODO 这里做一下处理，一天修改超过n次就不增加积分
-            (new UserScoreHistoryRepository())->repositoryCreate([
-                "uid"      => SnowFlakeId::getId(),
-                "title"    => "更新个人资料",
-                "user_uid" => $this->getUserUid(),
-                "score"    => 10,
-                "type"     => 1,
-            ]);
-            return ["row" => 1, "token" => $loginToken, "user" => $userInfo];
+            $updateCount = RedisClient::client()->get(CacheKey::$userInfoUpdateCount . $uid);
+            if ($updateCount < 3) {// 更新超过3次，就不需要更新增加更新积分历史
+                // 如果没有更新头像不增加积分
+                if (basename($requestParams["avatar_url"]) != "81b6ba3f79a9565ec32bd6d596a99944.jpg") {
+                    RedisClient::client()->incrByFloat(CacheKey::$scoreKey . $uid, 20);
+                    (new UserRepository())->repositoryUpdate([
+                        ["uid", "=", $this->getUserUid()],
+                    ], ["score" => $score + 20]);
+                    (new UserScoreHistoryRepository())->repositoryCreate([
+                        "uid"      => SnowFlakeId::getId(),
+                        "title"    => "更新个人资料",
+                        "user_uid" => $this->getUserUid(),
+                        "score"    => 10,
+                        "type"     => 1,
+                    ]);
+                    RedisClient::client()->incr(CacheKey::$userInfoUpdateCount . $uid);
+                }
+            }
+            return ["row" => 1, "token" => $loginToken, "user" => $userInfo, "rows" => $updateCount];
         }
         return ["row" => 0];
     }
@@ -99,7 +105,9 @@ class UserService extends BaseService implements UserServiceInterface
 
     public function serviceFindByOpenId(array $requestParams): array
     {
-        return (new UserRepository())->repositoryFind(self::searchWhere($requestParams), ["uid", "nickname", "avatar_url"]);
+        return (new UserRepository())->repositoryFind(self::searchWhere($requestParams), [
+            "uid", "nickname", "avatar_url",
+        ]);
     }
 
     public function serviceUserInfo(): array

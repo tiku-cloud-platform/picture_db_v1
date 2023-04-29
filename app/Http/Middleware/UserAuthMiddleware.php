@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Library\RedisClient;
 use App\Library\Response;
-use App\Library\UserJwt;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -19,10 +19,11 @@ class UserAuthMiddleware
         if (empty($authorization)) {
             return Response::error([], 101, "请登录", 401);
         }
-        $userInfo = UserJwt::decodeJwt($authorization);
+        $userInfo = RedisClient::client()->get($authorization);
         if (empty($userInfo)) {
             return Response::error([], 101, "请登录", 401);
         }
+        // TODO 验证是否登录是登录时的同一台设备
 
         return $next($request);
     }
