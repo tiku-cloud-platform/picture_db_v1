@@ -16,4 +16,9 @@ class Author extends BaseModel
         "created_at",
         "updated_at",
     ];
+
+    protected $casts = [
+        "uid" => "string",
+        "user_uid" => "string",
+    ];
 }

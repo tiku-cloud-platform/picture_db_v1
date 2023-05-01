@@ -17,6 +17,10 @@ class AuthorController extends Controller
 
     public function publishWallPaper(AuthorPublishWallPaperValidate $validate): JsonResponse
     {
-        return Response::success($validate->all());
+        $publishResult = (new AuthorService())->servicePublish(request()->all());
+        if ($publishResult["code"] == 0) {
+            return Response::success($publishResult);
+        }
+        return Response::error($publishResult);
     }
 }

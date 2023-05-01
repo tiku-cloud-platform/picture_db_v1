@@ -30,6 +30,8 @@ class User extends BaseModel
 
     protected $casts = [
         "profession" => "integer",
+        "uid" => "string",
+        "user_uid" => "string",
     ];
 
     public function getEmailAttribute($key): string

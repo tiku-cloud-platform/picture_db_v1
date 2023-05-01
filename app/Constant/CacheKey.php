@@ -9,6 +9,8 @@ class CacheKey
 
     public static $userInfoUpdateCount = "user:user:count";
 
+    public static $sysConfig = "sys:config:";
+
     public static $sourceType = [
         "iOS",
         "Android",

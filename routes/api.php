@@ -18,6 +18,7 @@ use App\Http\Controllers\RelationLinkController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\SourceCategoryController;
 use App\Http\Controllers\SourceController;
+use App\Http\Controllers\SysConfigController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserScoreHistoryController;
@@ -75,6 +76,10 @@ Route::prefix("source")->group(function (Router $router) {
     $router->get("item", [SourceController::class, "index"]);
     $router->get("detail", [SourceController::class, "show"]);
     $router->get("link", [RelationLinkController::class, "index"]);
+});
+
+Route::prefix("config")->group(function (Router $router) {
+    $router->get("state", [SysConfigController::class, "show"]);
 });
 
 Route::prefix("msg")->group(function (Router $router) {

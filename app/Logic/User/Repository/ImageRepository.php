@@ -1,10 +1,13 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Logic\User\Repository;
 
+use App\Models\User\ImageItemModel;
 use App\Models\User\ImageModel;
 use Closure;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ImageRepository implements UserRepositoryInterface
 {
@@ -21,14 +24,28 @@ class ImageRepository implements UserRepositoryInterface
         return [
             "items" => $items->items(),
             "total" => $items->total(),
-            "page" => $items->currentPage(),
-            "size" => $items->perPage(),
+            "page"  => $items->currentPage(),
+            "size"  => $items->perPage(),
         ];
     }
 
     public function repositoryCreate(array $insertInfo): bool
     {
-        // TODO: Implement repositoryCreate() method.
+        Db::beginTransaction();
+        try {
+            $imageModel = ImageModel::query()->create($insertInfo["image"]);
+            $imageItemModel = DB::table("image_item")->insert($insertInfo["image_item"]);
+            if (!empty($imageModel->getKey()) && $imageItemModel) {
+                DB::commit();
+                return true;
+            }
+            DB::rollBack();
+            return false;
+        } catch (\Throwable $throwable) {
+           Log::error($throwable->getMessage());
+            DB::rollBack();
+            return false;
+        }
     }
 
     public function repositoryFind(Closure $closure, array $searchFields = []): array
