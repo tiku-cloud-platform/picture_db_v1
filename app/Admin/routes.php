@@ -1,5 +1,6 @@
 <?php
 
+use App\Admin\Controllers\ImageAuditController;
 use Illuminate\Routing\Router;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,7 @@ Route::group([
     $router->get('/', [HomeController::class, "index"])->name('home');
     $router->resource("image/series", ImageSeriesController::class);
     $router->resource("image/category", ImageCategoryController::class);
+    $router->resource("image/audit", ImageAuditController::class);
     $router->resource("image/list", ImageController::class);
     $router->resource("documents/group", DocumentGroupController::class);
     $router->resource("documents", DocumentController::class);
