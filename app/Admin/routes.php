@@ -8,7 +8,6 @@ use App\Admin\Controllers\HomeController;
 use App\Admin\Controllers\MenuController;
 use App\Admin\Controllers\UserController;
 use App\Admin\Controllers\ImageController;
-use App\Admin\Controllers\AuthorController;
 use App\Admin\Controllers\BannerController;
 use App\Admin\Controllers\DocumentController;
 use App\Admin\Controllers\EmoGroupController;
