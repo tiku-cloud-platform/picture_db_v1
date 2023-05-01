@@ -12,6 +12,7 @@ class ImageItemService implements UserServiceInterface
     {
         return function ($query) use ($requestParams) {
             extract($requestParams);
+            $query->where("is_show", "=", 1);
             if (!empty($image_uid)) {
                 $query->where("image_uid", "=", $image_uid);
             }
