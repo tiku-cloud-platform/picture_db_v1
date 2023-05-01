@@ -8,6 +8,27 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CategoryModel extends Category
 {
+    protected $appends = [
+        "select",
+        "color",
+        "icon",
+    ];
+
+    public function getSelectAttribute($key): bool
+    {
+        return false;
+    }
+
+    public function getColorAttribute($key): string
+    {
+        return "green";
+    }
+
+    public function getIconAttribute($key): string
+    {
+        return "pin";
+    }
+
     public function image(): HasMany
     {
         return $this->hasMany(ImageModel::class, "category_uid", "uid")

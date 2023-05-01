@@ -7,6 +7,10 @@ class CacheKey
 {
     public static $scoreKey = "score:";
 
+    public static $userInfoUpdateCount = "user:user:count";
+
+    public static $sysConfig = "sys:config:";
+
     public static $sourceType = [
         "iOS",
         "Android",

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Controllers;
 
+use App\Constant\CacheKey;
+use App\Library\RedisClient;
 use App\Library\SnowFlakeId;
 use App\Models\Admin\SysConfig;
 use Encore\Admin\Controllers\AdminController;
@@ -42,6 +44,9 @@ class SysConfigController extends AdminController
         $form->text("key", "配置key")->required();
         $form->textarea("val", "配置值")->required();
         $form->text("describe", "配置描述")->rules('sometimes|max:20');
+        $form->saved(function (Form $form) {
+            RedisClient::client()->set(CacheKey::$sysConfig . $form->key, $form->val);
+        });
 
         return $form;
     }

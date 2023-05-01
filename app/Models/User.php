@@ -25,10 +25,13 @@ class User extends BaseModel
         "production_count",
         "name",
         "channel_uid",
+        "is_update_info"
     ];
 
     protected $casts = [
         "profession" => "integer",
+        "uid" => "string",
+        "user_uid" => "string",
     ];
 
     public function getEmailAttribute($key): string
