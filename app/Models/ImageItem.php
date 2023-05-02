@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Models;
 
@@ -18,6 +18,7 @@ class ImageItem extends BaseModel
         "collect",
         "created_at",
         "updated_at",
+        "remark"
     ];
 
     protected $casts = [
