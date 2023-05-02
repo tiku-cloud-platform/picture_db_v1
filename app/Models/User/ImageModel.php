@@ -24,4 +24,9 @@ class ImageModel extends Image
     {
         return $this->belongsTo(UserModel::class, "user_uid", "uid");
     }
+
+    public function getPathAttribute($key): string
+    {
+        return $key . "?imageView2/2/w/300/h/200/format/webp/q/75";
+    }
 }
