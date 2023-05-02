@@ -2,6 +2,9 @@
 
 兔兔找图后端api，需要使用该开源程序，**请熟读环境搭建文档章节、请熟读环境搭建文档章节、请熟读环境搭建文档章节**。
 
+在使用过程中遇到问题，欢迎反馈，反馈地址。请严格遵守文档规范。
+[](https://docs.qq.com/doc/DVWRISklMZ0VKTGtK)
+
 # 相关文档
 
 [项目介绍](https://docs.qq.com/doc/DVUxSRmFOZUFwaHFN)
