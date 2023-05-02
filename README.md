@@ -1,6 +1,6 @@
-# picture_ui_v1
+# picture_db_v1
 
-兔兔找图微信小程序端
+兔兔找图后端api
 
 # 相关文档
 
