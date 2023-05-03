@@ -27,6 +27,6 @@ class ImageModel extends Image
 
     public function getPathAttribute($key): string
     {
-        return $key . "?imageView2/2/w/300/h/200/format/webp/q/75";
+        return $key . "?imageView2/2/w/300/h/200/format/webp/q/90";
     }
 }
